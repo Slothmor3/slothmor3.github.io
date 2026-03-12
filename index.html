@@ -30,6 +30,7 @@
 
     html {
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
     body {
@@ -38,6 +39,8 @@
       color: var(--text);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      width: 100%;
     }
 
     /* ── Nav ── */
@@ -86,6 +89,7 @@
     /* ── Hero ── */
     .hero {
       min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -93,6 +97,7 @@
       text-align: center;
       padding: 120px 40px 80px;
       position: relative;
+      overflow: hidden;
     }
 
     .hero::before {
@@ -101,8 +106,8 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 600px;
-      height: 600px;
+      width: min(600px, 100vw);
+      height: min(600px, 100vw);
       background: radial-gradient(circle, rgba(61, 90, 254, 0.06) 0%, transparent 70%);
       pointer-events: none;
     }
@@ -223,7 +228,7 @@
     .services-grid {
       margin-top: 56px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
       gap: 20px;
     }
 
@@ -352,7 +357,7 @@
     /* ── Responsive ── */
     @media (max-width: 768px) {
       nav {
-        padding: 16px 24px;
+        padding: 16px 20px;
       }
 
       .nav-links {
@@ -364,23 +369,159 @@
       }
 
       section {
-        padding: 72px 24px;
+        padding: 72px 20px;
       }
 
       .hero {
-        padding: 100px 24px 60px;
+        padding: 100px 20px 60px;
+        min-height: calc(100vh - 60px);
+        min-height: calc(100dvh - 60px);
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 8vw, 2.8rem);
+      }
+
+      .hero-sub {
+        font-size: 1rem;
+        max-width: 100%;
+      }
+
+      .hero-cta {
+        margin-top: 36px;
+        padding: 12px 28px;
+      }
+
+      .section-title {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+      }
+
+      .about-body {
+        font-size: 1rem;
+      }
+
+      .contact-body {
+        gap: 32px;
       }
 
       footer {
-        padding: 32px 24px;
+        padding: 28px 20px;
         flex-direction: column;
         align-items: flex-start;
+        gap: 12px;
       }
     }
 
     @media (max-width: 480px) {
       .nav-links {
         display: none;
+      }
+
+      nav {
+        padding: 14px 16px;
+      }
+
+      section {
+        padding: 56px 16px;
+      }
+
+      .hero {
+        padding: 80px 16px 48px;
+      }
+
+      .hero-eyebrow {
+        font-size: 0.7rem;
+        margin-bottom: 16px;
+      }
+
+      .hero h1 {
+        font-size: clamp(1.75rem, 7.5vw, 2.4rem);
+        word-break: keep-all;
+      }
+
+      .hero-sub {
+        margin-top: 16px;
+        font-size: 0.95rem;
+        word-break: keep-all;
+      }
+
+      .hero-cta {
+        margin-top: 32px;
+        padding: 12px 24px;
+        font-size: 0.85rem;
+      }
+
+      .section-label {
+        font-size: 0.7rem;
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+        word-break: keep-all;
+      }
+
+      .about-body {
+        margin-top: 24px;
+        font-size: 0.95rem;
+        word-break: keep-all;
+      }
+
+      .service-card {
+        padding: 28px 24px;
+      }
+
+      .service-card h3 {
+        font-size: 0.95rem;
+      }
+
+      .service-card p {
+        font-size: 0.85rem;
+      }
+
+      .contact-body {
+        gap: 24px;
+      }
+
+      footer {
+        padding: 24px 16px;
+      }
+    }
+
+    /* Safe area for notched devices */
+    @supports (padding: env(safe-area-inset-left)) {
+      nav {
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
+      }
+
+      section {
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
+      }
+
+      footer {
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
+        padding-bottom: max(20px, env(safe-area-inset-bottom));
+      }
+    }
+
+    @media (max-width: 480px) {
+      @supports (padding: env(safe-area-inset-left)) {
+        nav {
+          padding-left: max(16px, env(safe-area-inset-left));
+          padding-right: max(16px, env(safe-area-inset-right));
+        }
+
+        section {
+          padding-left: max(16px, env(safe-area-inset-left));
+          padding-right: max(16px, env(safe-area-inset-right));
+        }
+
+        footer {
+          padding-left: max(16px, env(safe-area-inset-left));
+          padding-right: max(16px, env(safe-area-inset-right));
+        }
       }
     }
   </style>
